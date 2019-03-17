@@ -1,0 +1,50 @@
+<div class="container">
+    <h1>{{appservice.getRoomType(room)}} Room Booking</h1>
+    <form #form2="ngForm">
+      <div class="form-group">   
+          Name : 
+          <input required required type="text" class="form-control" name="custName" #custname minlength="3" maxlength="30" placeholder="Customer Name" [(ngModel)]='cust.name' #custName="ngModel" required>        
+         <div class="alert alert-danger" *ngIf="custName.dirty && !custName.valid">
+           <span *ngIf="custName.value.length < 1">
+             Enter A Name
+           </span>
+           <span *ngIf="custName.value.length > 0 && custName.value.length < 3">
+            Minimum Name Length is 3.
+          </span>
+         </div>
+        </div>
+      <div class="form-group" >      
+        No Of Adults
+        <input type="number" class="form-control" name="noOfAdults" placeholder="No of Adults" [(ngModel)]='cust.NoOfAdults' #noOfAdults="ngModel" min="1" max="10" required >
+        <div *ngIf="noOfAdults.dirty">
+          <span *ngIf="noOfAdults.value < 1">Minimum 1 Adult required.</span>
+          <span *ngIf="noOfAdults.value > 10">Maximum 10 Adult on a Booking</span>
+        </div>
+      </div>
+      <div class="form-group">      
+        Number Of Children
+        <input type="number" class="form-control" name="noOfChildren" placeholder="Number of Children" [(ngModel)]='cust.NoOfChildren' #noOfChildren="ngModel" min="0" max="10">
+      </div>
+  
+      <div class="form-group">      
+        Number of Days
+        <input type="number" class="form-control" name="NoDays" placeholder="No Of Days" [(ngModel)]='cust.NoofDays' min="1" max="10" #NoDays="ngModel" required>
+        <div *ngIf="NoDays.dirty">
+            <span *ngIf="NoDays.value < 1">Minimum 1 Day required.</span>
+            <span *ngIf="noOfAdults.value > 10">Maximum 10 Days on a Booking</span>
+          </div>
+      </div>
+  
+      <div class="form-group" *ngIf="form2.valid" >
+        <button type="submit" ng-model="Submit" ng-disabled="custName.valid" class="btn btn-success" (click)="calculatenprint();">Add</button>      
+      </div>
+  
+      <div class="form-group" *ngIf="!(value == NaN)">
+        <h3>
+          Name: {{cust.name}}<br>
+          Number Of Days : {{cust.NoofDays}}<br>
+          Price of booking will be {{value}}
+        </h3>
+      </div>
+    </form>
+  </div>
